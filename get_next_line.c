@@ -23,8 +23,6 @@ char	*read_file_to_stack(int fd, char *stack)
 	char	*buffer;
 	int		read_bytes;
 
-    if (UNREADABLE_FILE)
-        return (NULL);
 	buffer = malloc(MALLOC_BUFFER_SIZE);
 	if (!buffer)
 		return (NULL);

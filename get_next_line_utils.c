@@ -31,9 +31,9 @@ char	*append_buffer_to_stack(char *stack, char *buffer)
 		return (NULL);
 	i = -1;
 	buff_i = 0;
-    while (stack[++i] != '\0')
+    while (stack[++i])
 		new_stack[i] = stack[i];
-	while (buffer[buff_i] != '\0')
+	while (buffer[buff_i])
 		new_stack[i++] = buffer[buff_i++];
 	new_stack[i] = '\0';
 	free(stack);
