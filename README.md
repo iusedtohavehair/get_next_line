@@ -4,8 +4,6 @@
 
 Project made in a school context, at 42 Quebec. 
 
-/tokei/lines/:provider/:user/:repo
-
 ## Task asked
 
 Create a function that, when called, returns the next line in a given file descriptor.

@@ -1,30 +1,30 @@
-#include <unistd.h>
-#include <stdlib.h>
-#include <fcntl.h>//TODO retirer
-#include <stdio.h> //TODO retirer
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cchouina <cchouina@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/06 08:52:23 by cchouina          #+#    #+#             */
+/*   Updated: 2023/02/06 09:17:25 by cchouina         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-# ifndef GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-#endif
-
 //BUFFER_SIZE
 # ifndef BUFFER_SIZE
-# define BUFFER_SIZE 1
-# endif
+#  define BUFFER_SIZE 1
 
-//FILES ERRORS AND CONDITIONS 
-# define EMPTY_FILE (readed_bytes == 0 && stack == NULL)
-# define INVALID_FILE readed_bytes < 0
-# define UNREADABLE_FILE read(fd, NULL, 0) == -1
-# define INVALID_FD fd < 0
-
+# include <unistd.h>
+# include <stdlib.h>
 //ALLOCATION
 # define BYTE_FOR_NULL 1
 # define BYTE_FOR_NL 1
-# define MALLOC_BUFFER_SIZE sizeof(char) * (BUFFER_SIZE +1)
 
 //DIVERS
 # define NEW_LINE '\n'
+# endif
 
 //PROTOTYPES
 //get_next_line.c functions
@@ -34,8 +34,8 @@ char	*get_line_from_stack(char *stack);
 char	*clean_stack(char *stack);
 
 //get_next_line_utils.c functions
-int ft_strlen(char *str);
+int		ft_strlen(char *str);
 char	*append_buffer_to_stack(char *stack, char *buffer);
-int	find_new_line(char *s, int c);
-int get_line_len(char *stack);
-int reinitialise_stack(char **stack);
+int		find_new_line(char *s, int c);
+int		get_line_len(char *stack);
+int		reinitialise_stack(char **stack);

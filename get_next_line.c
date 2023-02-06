@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cchouina <cchouina@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/06 08:52:12 by cchouina          #+#    #+#             */
+/*   Updated: 2023/02/06 09:05:35 by cchouina         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 char	*get_next_line(int fd)
@@ -5,11 +17,11 @@ char	*get_next_line(int fd)
 	char		*line;
 	static char	*stack;
 
-	if (INVALID_FD || BUFFER_SIZE <= 0 || UNREADABLE_FILE)
-    {
-        reinitialise_stack(&stack);
+	if (fd< 0 || BUFFER_SIZE <= 0 || read(fd, NULL, 0) == -1)
+	{
+		reinitialise_stack(&stack);
 		return (NULL);
-    }
+	}
 	stack = read_file_to_stack(fd, stack);
 	if (!stack)
 		return (NULL);
@@ -23,7 +35,7 @@ char	*read_file_to_stack(int fd, char *stack)
 	char	*buffer;
 	int		read_bytes;
 
-	buffer = malloc(MALLOC_BUFFER_SIZE);
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE +1));
 	if (!buffer)
 		return (NULL);
 	read_bytes = 1;
@@ -33,7 +45,7 @@ char	*read_file_to_stack(int fd, char *stack)
 		if (read_bytes == -1)
 		{
 			free(buffer);
-            reinitialise_stack(&stack);
+			reinitialise_stack(&stack);
 			return (NULL);
 		}
 		buffer[read_bytes] = '\0';
@@ -46,10 +58,10 @@ char	*read_file_to_stack(int fd, char *stack)
 char	*get_line_from_stack(char *stack)
 {
 	int		i;
-    int line_len;
+	int		line_len;
 	char	*line;
 
-    if (!stack[0] || !stack)
+	if (!stack[0] || !stack)
 		return (NULL);
 	i = 0;
 	line_len = get_line_len(stack);
@@ -83,12 +95,13 @@ char	*clean_stack(char *stack)
 		reinitialise_stack(&stack);
 		return (NULL);
 	}
-	cleaned_stack = malloc(sizeof(char) * (ft_strlen(stack) - i + BYTE_FOR_NULL));
+	cleaned_stack = malloc(sizeof(char) * (ft_strlen(stack) - i
+				+ BYTE_FOR_NULL));
 	if (!cleaned_stack)
-    {
-        free(stack);
+	{
+		free(stack);
 		return (NULL);
-    }
+	}
 	i++;
 	while (stack[i])
 		cleaned_stack[cleaned_s_i++] = stack[i++];
